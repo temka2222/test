@@ -1,8 +1,8 @@
-import { Logo } from "./filmlogo";
-import { Moon } from "./moon";
+import { Logo } from "./Icons/filmlogo";
+import { Moon } from "./Icons/moon";
 export const Navigation = () => {
   return (
-    <div className="w-[100%] flex flex-row justify-between p-4 ">
+    <div className="w-[1440px] flex flex-row justify-between p-20 ">
       <div className="flex flex-row gap-2 text-[#4338CA]">
         <Logo />
         <p>Movie Z</p>

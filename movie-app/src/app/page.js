@@ -3,86 +3,89 @@ import { Navigation } from "./components/navigation";
 import { Slide } from "./components/Slide";
 import { UpcomingList } from "./components/UpcomingList";
 import { PopularList } from "./components/popularlist";
+import { TopRated } from "./components/topRated";
+
 export default function Home() {
-   useEffect(() => {
-    const countries = async () => {
-      const response = await fetch(
-        "https://countriesnow.space/api/v0.1/countries",
-        { method: "GET" }
-      );
-      const data = await response.json();
-      setdata(data.data);
-    };
-    countries();
-  }, []);
+  //  useEffect(() => {
+  //   const countries = async () => {
+  //     const response = await fetch(
+  //       "https://countriesnow.space/api/v0.1/countries",
+  //       { method: "GET" }
+  //     );
+  //     const data = await response.json();
+  //     setdata(data.data);
+  //   };
+  //   countries();
+  // }, []);
   const list = [
     {
       name: "The Shawshank Redemption",
       url: "/Popular/The Shawshank Redemption.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "How To Train Your Dragon Live Action",
       url: "/Upcoming/How To Train Your Dragon Live Action.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "Alien Romulus",
       url: "/Upcoming/Alien Romulus.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "From the Ashes",
       url: "/Upcoming/From the Ashes.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "Space Dogg",
       url: "/Upcoming/spacedogg.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "Y2K",
       url: "/Upcoming/Y2K.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "Solo Leveling: ReAwakening",
       url: "/Upcoming/ReAwakening.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "Get Away",
       url: "/Upcoming/Get Away.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "Sonic the Hedgehog 3",
       url: "/Upcoming/Sonic the Hedgehog 3.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
     {
       name: "The Order",
       url: "/Upcoming/The Order.jpeg",
       rating: "6.9/10",
-      list: "upcoming"
+      list: "upcoming",
     },
   ];
   return (
-    <div className="w-[1440px] flex flex-col mr-auto justify-center items-center text-white bg-black">
+    <div className="max-w-[1440px] flex flex-col m-auto  text-white bg-black overflow-hidden">
       <Navigation />
       <Slide />
-    <UpcomingList list={list} />
-     
+      <UpcomingList list={list} />
+      <PopularList list={list} />
+      <TopRated list={list} />
     </div>
   );
 }

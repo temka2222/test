@@ -1,19 +1,12 @@
 "use client";
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { useEffect, useState } from "react";
 import { Right } from "./Icons/RightBtn";
 export const Slide = () => {
-  const [current, setCurrent] = useState(0);
+  
 
-  const prev = () => {
-    setCurrent((current) => {
-      current == 0 ? movieList.length - 1 : current - 1;
-    });
-  };
-  const next = () => {
-    setCurrent((current) => {
-      current == movieList.length - 1 ? 0 : current + 1;
-    });
-  };
+ 
   const movieList = [
     {
       name: "Wicked",
@@ -28,32 +21,25 @@ export const Slide = () => {
       url: "/Slide/Moana.jpeg",
     },
   ];
-  // useEffect(() => {
-  //   const interval = setInterval(next, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  
   return (
     <div className=" relative">
-      <div
-        className={`flex w-max transition-transform ease-in-out duration-50 translate-x-2`}
-        style={{ transform: `translateX(-${current * 100}%)` }}
+   
+      <div  className="flex flex-row w-full gap-4 overflow-hidden justify-center items-center">
+         <Carousel 
+        autoPlay 
+        infiniteLoop 
+        showThumbs={false} 
+        showStatus={false} 
+        interval={3000} 
       >
-        <img src={movieList[current].url} />
+        {movieList.map((item,indx)=>{
+        return(  <img className="w-full sm:w-[1440px] h-[600px] object-fit " key={indx} src={item.url}/>)
+        })}
+        </Carousel>
       </div>
-      <div className=" w-full flex flex-row absolute justify-between items-center inset-0 ">
-        <button
-          onClick={prev}
-          className=" bg-amber-50 p-2 flex justify-center items-center absolute rounded-full"
-        >
-          <Right />
-        </button>
-        <button
-          onClick={next}
-          className="bg-amber-950 p-4 flex justify-center items-center absolute rounded-full"
-        >
-          <Right />
-        </button>
-      </div>
+      
+      
     </div>
   );
 };

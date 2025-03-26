@@ -8,11 +8,12 @@ import { PopularList } from "./components/popularlist";
 import { TopRated } from "./components/topRated";
 
 export default function Home() {
-  const [dark,setDark]=useState(localStorage.getItem("dark")===false ? false: true)
-useEffect(()=>{
-  localStorage.setItem('dark', JSON.stringify("dark"));
+  const [dark, setDark] = useState<boolean>(true);
 
-},[dark])
+  // useEffect(() => {
+  //   localStorage.setItem("dark", JSON.stringify(dark));
+  // }, [dark]);
+
   const list = [
     {
       name: "The Shawshank Redemption",
@@ -76,8 +77,12 @@ useEffect(()=>{
     },
   ];
   return (
-    <div className={`max-w-[1440px] flex flex-col m-auto  text-${dark==true ? "white": "black"} bg-${dark==true ? "black": "white"} overflow-hidden`}>
-    <Navigation dark={dark}  setDark={setDark}/>
+    <div
+      className={`max-w-[1440px] flex flex-col m-auto ${
+        dark ? "text-white bg-black" : "text-black bg-white"
+      } overflow-hidden`}
+    >
+      <Navigation dark={dark} setDark={setDark} />
       <Slide />
       <UpcomingList list={list} />
       <PopularList list={list} />

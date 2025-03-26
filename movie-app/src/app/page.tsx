@@ -7,6 +7,7 @@ import { UpcomingList } from "./components/UpcomingList";
 import { PopularList } from "./components/popularlist";
 import { TopRated } from "./components/topRated";
 
+
 export default function Home() {
   const [dark, setDark] = useState<boolean>(true);
 
@@ -79,7 +80,7 @@ export default function Home() {
   return (
     <div
       className={`max-w-[1440px] flex flex-col m-auto ${
-        dark ? "text-white bg-black" : "text-black bg-white"
+        dark ? " text-white bg-black" : " text-black bg-white"
       } overflow-hidden`}
     >
       <Navigation dark={dark} setDark={setDark} />

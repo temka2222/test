@@ -7,9 +7,8 @@ import { UpcomingList } from "./components/UpcomingList";
 import { PopularList } from "./components/popularlist";
 import { TopRated } from "./components/topRated";
 
-
 export default function Home() {
-  const [dark, setDark] = useState<boolean>(true);
+  const [dark, setDark] = useState<boolean>(false);
 
   // useEffect(() => {
   //   localStorage.setItem("dark", JSON.stringify(dark));

@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { Logo } from "./Icons/filmlogo";
 import { Moon } from "./Icons/moon";
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
+import { RightBtn } from "./RightIcon";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 type NavigationProps = {
   dark: boolean;
   setDark: (value: boolean) => void;
 };
-
-export const Navigation = ({ dark, setDark }: NavigationProps) => {
-  const movieGenres = [
+const movieGenres = [
   "Action",
   "Adventure",
   "Animation",
@@ -28,40 +35,102 @@ export const Navigation = ({ dark, setDark }: NavigationProps) => {
   "Science Fiction",
   "Thriller",
   "War",
-  "Western"
+  "Western",
 ];
+
+export const Navigation = ({ dark, setDark }: NavigationProps) => {
+  const [searchbtn, setSearchbtn] = useState<boolean>(false);
   return (
-    <div className="w-full flex flex-row justify-between p-20 pb-10 pt-10">
-      <div className="flex flex-row gap-2 text-[#4338CA]">
+    <div className="w-full flex flex-row justify-between items-center lg:p-20 p-5 pb-10 pt-10">
+      <div
+        className={`flex flex-row gap-2 text-[#4338CA]1 ${
+          searchbtn == true ? "hidden" : ""
+        }`}
+      >
         <Logo />
         <p>Movie Z</p>
       </div>
-      <div className=" flex flex-row gap-3">
-        <select className="w-14 h-9 border-solid border  border-[#F4F4F5] rounded-md "></select>
-        <div className=" w-100  justify-start items-center file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 rounded-md border bg-transparent pt-1.5 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm ">
-          <div className=" opacity-10   file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30  flex h-9   bg-transparent pt-1.5 pl-1 py-1 text-base  transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-        <SearchIcon/>  
-        </div> 
-          <div className=" ">
-        <Input type="text"  placeholder="Search"/>
-        </div>
-        
-        </div>
-      </div>
-
-      <button
-        onClick={() => {
-          if (dark == true) {
-            setDark(false);
-          } else {
-            setDark(true);
-          }
-          console.log(dark);
-        }}
-        className="  border-solid border p-2 border-[#F4F4F5] rounded-md shadow-sm "
+      <div
+        className={`flex lg:w-[60%] ${
+          searchbtn == true ? "w-full" : ""
+        } flex-row gap-5 justify-between`}
       >
-        <Moon dark={dark} />
-      </button>
+        <div className=" flex flex-row gap-2 ">
+          <div className={`lg:block ${searchbtn == true ? "block" : "hidden"}`}>
+            <Select>
+              <SelectTrigger className="w-[100px] ">
+                <SelectValue
+                  placeholder={`${searchbtn == true ? "" : "Genre"}`}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <div className="flex flex-col gap-3 p-2">
+                  <p className=" text-2xl font-bold">Genres</p>
+                  <p>See lists of movies by genre</p>
+                  <div className="grid grid-cols-3 w-[500px] h-[333px] gap-3 border-solid border p-2  rounded-2xl text-nowrap">
+                    {movieGenres.map((item) => {
+                      return (
+                        <div className="flex flex-row size-fit border-solid border justify-center items-center rounded-full ">
+                          <SelectItem value={item}>{item}</SelectItem>
+                          <div className="p-2">
+                            <RightBtn />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </SelectContent>
+            </Select>
+          </div>
+          <div
+            className={`lg:flex w-fit  flex-row   justify-start items-center border-solid  solid-grey rounded-sm ${
+              searchbtn == true ? "flex border-0" : "hidden border"
+            }`}
+          >
+            <div className=" flex flex-row  opacity-10   h-9  justify-center items-center">
+              <SearchIcon />
+            </div>
+
+            <Input type="text" placeholder="Search" />
+          </div>
+          <button
+            onClick={() => {
+              setSearchbtn(true);
+            }}
+            className={`lg:hidden  flex flex-row  opacity-10   h-9  justify-center items-center ${
+              searchbtn == true ? "hidden" : ""
+            }`}
+          >
+            <SearchIcon />
+          </button>
+          <button
+            onClick={() => {
+              setSearchbtn(false);
+            }}
+            className={`lg:hidden  flex flex-row   h-9  justify-center items-center ${
+              searchbtn == true ? "flex" : "hidden"
+            }`}
+          >
+            X
+          </button>
+        </div>
+        <button
+          onClick={() => {
+            if (dark == true) {
+              setDark(false);
+            } else {
+              setDark(true);
+            }
+            console.log(dark);
+          }}
+          className={`border-solid border p-2 border-[#F4F4F5] rounded-md shadow-sm ${
+            searchbtn == true ? "hidden" : "block"
+          }`}
+        >
+          <Moon dark={dark} />
+        </button>
+      </div>
     </div>
   );
 };

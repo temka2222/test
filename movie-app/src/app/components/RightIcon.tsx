@@ -1,4 +1,7 @@
-export const RightBtn = () => {
+type DarkType = {
+  dark: Boolean;
+};
+export const RightBtn = (dark: DarkType) => {
   return (
     <svg
       width="6"
@@ -9,7 +12,7 @@ export const RightBtn = () => {
     >
       <path
         d="M1 9L5 5L1 1"
-        stroke="#09090B"
+        stroke={`${dark ? "#FAFAFA" : ""}`}
         stroke-linecap="round"
         stroke-linejoin="round"
       />

@@ -12,6 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { text } from "stream/consumers";
+import { color } from "motion/react";
 type NavigationProps = {
   dark: boolean;
   setDark: (value: boolean) => void;
@@ -41,7 +43,11 @@ const movieGenres = [
 export const Navigation = ({ dark, setDark }: NavigationProps) => {
   const [searchbtn, setSearchbtn] = useState<boolean>(false);
   return (
-    <div className="w-full flex flex-row justify-between items-center lg:p-20 p-5 pb-10 pt-10">
+    <div
+      className={`w-full flex flex-row justify-between items-center lg:p-20 p-5 pb-10 pt-10 ${
+        dark == true ? "text-white" : "text-black"
+      }`}
+    >
       <div
         className={`flex flex-row gap-2 text-[#4338CA]1 ${
           searchbtn == true ? "hidden" : ""
@@ -52,28 +58,34 @@ export const Navigation = ({ dark, setDark }: NavigationProps) => {
       </div>
       <div
         className={`flex lg:w-[60%] ${
-          searchbtn == true ? "w-full" : ""
-        } flex-row gap-5 justify-between`}
+          searchbtn == true ? "w-full" : " gap-4"
+        } flex-row justify-between `}
       >
-        <div className=" flex flex-row gap-2 ">
+        <div
+          className={`flex flex-row gap-2 items-center ${
+            searchbtn == true ? "w-full justify-between" : "w-fit"
+          }`}
+        >
           <div className={`lg:block ${searchbtn == true ? "block" : "hidden"}`}>
             <Select>
-              <SelectTrigger className="w-[100px] ">
+              <SelectTrigger className="w-fit h-9 rounded-sm">
                 <SelectValue
                   placeholder={`${searchbtn == true ? "" : "Genre"}`}
                 />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent
+                className={`${dark == true ? "text-white bg-black" : ""} `}
+              >
                 <div className="flex flex-col gap-3 p-2">
                   <p className=" text-2xl font-bold">Genres</p>
                   <p>See lists of movies by genre</p>
-                  <div className="grid grid-cols-3 w-[500px] h-[333px] gap-3 border-solid border p-2  rounded-2xl text-nowrap">
+                  <div className="grid lg:grid-cols-3 grid-cols-2 w-fit h-fit gap-3 border-solid border p-2  rounded-2xl text-nowrap">
                     {movieGenres.map((item) => {
                       return (
                         <div className="flex flex-row size-fit border-solid border justify-center items-center rounded-full ">
                           <SelectItem value={item}>{item}</SelectItem>
                           <div className="p-2">
-                            <RightBtn />
+                            <RightBtn dark={dark} />
                           </div>
                         </div>
                       );
@@ -84,11 +96,11 @@ export const Navigation = ({ dark, setDark }: NavigationProps) => {
             </Select>
           </div>
           <div
-            className={`lg:flex w-fit  flex-row   justify-start items-center border-solid  solid-grey rounded-sm ${
+            className={`lg:flex w-fit h-9 flex-row   justify-start items-center border-solid  solid-grey rounded-sm ${
               searchbtn == true ? "flex border-0" : "hidden border"
             }`}
           >
-            <div className=" flex flex-row  opacity-10   h-9  justify-center items-center">
+            <div className=" flex flex-row  opacity-10   h-8  justify-center items-center">
               <SearchIcon />
             </div>
 

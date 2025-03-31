@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import { Logo } from "./Icons/filmlogo";
 import { Moon } from "./Icons/moon";
 import { Input } from "@/components/ui/input";
@@ -12,35 +14,51 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { text } from "stream/consumers";
-import { color } from "motion/react";
+
 type NavigationProps = {
   dark: boolean;
   setDark: (value: boolean) => void;
 };
-const movieGenres = [
-  "Action",
-  "Adventure",
-  "Animation",
-  "Biography",
-  "Comedy",
-  "Crime",
-  "Documentary",
-  "Drama",
-  "Family",
-  "Fantasy",
-  "History",
-  "Horror",
-  "Music",
-  "Mystery",
-  "Romance",
-  "Science Fiction",
-  "Thriller",
-  "War",
-  "Western",
-];
+
+type Genre = {
+  id: number;
+  name: string;
+};
 
 export const Navigation = ({ dark, setDark }: NavigationProps) => {
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [check, setCheck] = useState(false);
+
+  useEffect(() => {
+    const getGenres = async () => {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/genre/movie/list?language=en",
+        {
+          method: "GET",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWJjNGM2NWNkZDFhNzE3N2I0NWQwMzhjNmE5NDlhYiIsIm5iZiI6MTc0MjgzMjQ4MS40NTQwMDAyLCJzdWIiOiI2N2UxODM2MTRjZTA3ZDY4NGUwODE5NzAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.kYLNQ-aa-cqDiKJQJ5ogEr5ATubq9JU87gsO_n8Sz3U",
+          },
+        }
+      );
+      const res = await response.json();
+
+      setGenres(res.genres);
+      console.log(res.genres);
+    };
+
+    getGenres();
+  }, []);
+
+  useEffect(() => {
+    if (!check) return;
+    window.localStorage.setItem("dark", JSON.stringify(dark));
+  }, [dark, check]);
+  useEffect(() => {
+    setDark(JSON.parse(localStorage.getItem("dark")));
+    setCheck(true);
+  }, []);
+
   const [Clicked, setClicked] = useState<boolean>(false);
   const [searchbtn, setSearchbtn] = useState<boolean>(false);
   return (
@@ -81,13 +99,14 @@ export const Navigation = ({ dark, setDark }: NavigationProps) => {
                   <p className=" text-2xl font-bold">Genres</p>
                   <p>See lists of movies by genre</p>
                   <div className="grid lg:grid-cols-3 grid-cols-2 w-fit h-fit gap-3 border-solid border p-2  rounded-2xl text-nowrap">
-                    {movieGenres.map((item) => {
+                    {genres.map((item) => {
                       return (
-                        <div  onClick={() => setClicked(!Clicked)}  className={`flex flex-row size-fit border-solid border justify-center items-center rounded-full `}>
-                          <SelectItem  value={item}> {item} </SelectItem>
-                          <div className="p-2">
-                            { <RightBtn dark={dark} />}
-                          </div>
+                        <div
+                          onClick={() => setClicked(!Clicked)}
+                          className={`flex flex-row size-fit border-solid border justify-center items-center rounded-full `}
+                        >
+                          <SelectItem value={item.name}>{item.name}</SelectItem>
+                          <div className="p-2">{<RightBtn dark={dark} />}</div>
                         </div>
                       );
                     })}

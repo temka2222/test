@@ -10,18 +10,18 @@ import { Footer } from "./components/footer";
 
 export default function Home() {
   const [dark, setDark] = useState<boolean>(false);
-    useEffect(() => {
-    const countries = async () => {
-      const response = await fetch(
-        "https://countriesnow.space/api/v0.1/countries",
-        { method: "GET" }
-      );
-      const data = await response.json();
-      setdata(data.data);
-    };
-    countries();
-  }, []);
-  console.log(data);  
+  //   useEffect(() => {
+  //   const countries = async () => {
+  //     const response = await fetch(
+  //       "https://countriesnow.space/api/v0.1/countries",
+  //       { method: "GET" }
+  //     );
+  //     const data = await response.json();
+  //     setdata(data.data);
+  //   };
+  //   countries();
+  // }, []);
+  // console.log(data);
 
   // useEffect(() => {
   //   localStorage.setItem("dark", JSON.stringify(dark));
@@ -97,10 +97,10 @@ export default function Home() {
     >
       <Navigation dark={dark} setDark={setDark} />
       <Slide />
-      <UpcomingList list={list} />
-      <PopularList list={list} />
-      <TopRated list={list} />
-      <Footer/>
+      <UpcomingList />
+      <PopularList />
+      <TopRated />
+      <Footer />
     </div>
   );
 }

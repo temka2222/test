@@ -41,10 +41,11 @@ const movieGenres = [
 ];
 
 export const Navigation = ({ dark, setDark }: NavigationProps) => {
+  const [Clicked, setClicked] = useState<boolean>(false);
   const [searchbtn, setSearchbtn] = useState<boolean>(false);
   return (
     <div
-      className={`w-full flex flex-row justify-between items-center lg:p-20 p-5 pb-10 pt-10 ${
+      className={`w-full flex flex-row justify-between items-center p-5 ${
         dark == true ? "text-white" : "text-black"
       }`}
     >
@@ -82,10 +83,10 @@ export const Navigation = ({ dark, setDark }: NavigationProps) => {
                   <div className="grid lg:grid-cols-3 grid-cols-2 w-fit h-fit gap-3 border-solid border p-2  rounded-2xl text-nowrap">
                     {movieGenres.map((item) => {
                       return (
-                        <div className="flex flex-row size-fit border-solid border justify-center items-center rounded-full ">
-                          <SelectItem value={item}>{item}</SelectItem>
+                        <div  onClick={() => setClicked(!Clicked)}  className={`flex flex-row size-fit border-solid border justify-center items-center rounded-full `}>
+                          <SelectItem  value={item}> {item} </SelectItem>
                           <div className="p-2">
-                            <RightBtn dark={dark} />
+                            { <RightBtn dark={dark} />}
                           </div>
                         </div>
                       );

@@ -14,7 +14,7 @@ export const UpcomingList = ({ list }: { list: MovListType[] }) => {
   });
 
   return (
-    <div className="flex flex-col gap-8 p-20">
+    <div className="flex flex-col gap-8 p-10">
       <Seemore title="Upcoming" />
       <div className=" grid  xl:grid-cols-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  gap-8">
         {newList.map((item, index) => {

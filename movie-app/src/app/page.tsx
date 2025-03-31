@@ -6,9 +6,22 @@ import { Slide } from "./components/Slide";
 import { UpcomingList } from "./components/UpcomingList";
 import { PopularList } from "./components/popularlist";
 import { TopRated } from "./components/topRated";
+import { Footer } from "./components/footer";
 
 export default function Home() {
   const [dark, setDark] = useState<boolean>(false);
+    useEffect(() => {
+    const countries = async () => {
+      const response = await fetch(
+        "https://countriesnow.space/api/v0.1/countries",
+        { method: "GET" }
+      );
+      const data = await response.json();
+      setdata(data.data);
+    };
+    countries();
+  }, []);
+  console.log(data);  
 
   // useEffect(() => {
   //   localStorage.setItem("dark", JSON.stringify(dark));
@@ -87,6 +100,7 @@ export default function Home() {
       <UpcomingList list={list} />
       <PopularList list={list} />
       <TopRated list={list} />
+      <Footer/>
     </div>
   );
 }

@@ -48,9 +48,9 @@ export const Slide = () => {
         >
           {movieList.map((item, indx) => {
             return (
-              <div className="flex justify-star items-center">
+              <div className="  flex justify-star items-center">
                 <img
-                  className="w-full sm:w-[1440px] h-[600px] object-fit relative "
+                  className="h-[600px] w-[1440px] object-fit relative "
                   key={indx}
                   src={item.url}
                 />
@@ -83,19 +83,18 @@ export const Slide = () => {
       </div>
       {ind !== 0 && (
         <div
-          className={`flex absolute z-100 justify-center items-center inset-0`}
+          className={`flex absolute z-100 justify-center items-center inset-0 text-white`}
         >
           <iframe
-            className="relative"
-            width="997"
-            height="500"
+            className="relative w-3/4 h-4/5 "
+           
             src={movieList[ind - 1].trailer}
           ></iframe>
           <button
             onClick={() => {
               setInd(0);
             }}
-            className=" absolute inset-0 z-200 left-2/3 bottom-3/4 text-3xl "
+            className=" absolute inset-0 z-200 left-5/7 bottom-3/4 text-2xl "
           >
             X
           </button>

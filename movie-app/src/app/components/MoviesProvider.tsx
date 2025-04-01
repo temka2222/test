@@ -1,13 +1,12 @@
 "use client";
-import { Children, createContext, useState } from "react"
-export const DarkContext=createContext({ })
-export const DarkProvider=({children})=>{
-    const [dark,setDark]=useState<boolean>(false)
-    const[movie,setMovie]=useState<boolean|null>(null)
-    return(
-        <DarkContext.Provider value={{dark,setDark,movie,setMovie}}> 
-            {children}
-        </DarkContext.Provider> 
-    )
-
-}   
+import { Children, createContext, PropsWithChildren, useState } from "react";
+export const DarkContext = createContext({});
+export const DarkProvider = ({ children }: PropsWithChildren) => {
+  const [dark, setDark] = useState<boolean>(false);
+  const [movieId, setMovieId] = useState<boolean | null>(1197306);
+  return (
+    <DarkContext.Provider value={{ dark, setDark, movieId, setMovieId }}>
+      {children}
+    </DarkContext.Provider>
+  );
+};

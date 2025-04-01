@@ -40,7 +40,6 @@ export const UpcomingList = () => {
     getMoviesByAxios();
   }, []);
   console.log(movies);
-
   return (
     <div className="flex flex-col gap-8 p-10">
       <Seemore title="Upcoming" />
@@ -58,6 +57,7 @@ export const UpcomingList = () => {
           );
         })}
       </div>
+      4
     </div>
   );
 };

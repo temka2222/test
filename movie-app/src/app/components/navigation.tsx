@@ -6,7 +6,7 @@ import { Moon } from "./Icons/moon";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import { RightBtn } from "./RightIcon";
-import { useContext} from "react";
+import { useContext } from "react";
 import { DarkContext } from "./MoviesProvider";
 
 import {
@@ -28,7 +28,7 @@ type Genre = {
 };
 
 export const Navigation = () => {
-    const {dark,setDark}=useContext(DarkContext)
+  const { dark, setDark } = useContext(DarkContext);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [check, setCheck] = useState(false);
 
@@ -47,7 +47,6 @@ export const Navigation = () => {
       const res = await response.json();
 
       setGenres(res.genres);
-      console.log(res.genres);
     };
 
     getGenres();

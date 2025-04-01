@@ -25,7 +25,7 @@ export const TopRated = () => {
     };
     getMoviesByAxios();
   }, []);
-  console.log(movies);
+
   return (
     <div className="flex flex-col gap-8 p-10 pt-0 ">
       <Seemore title="Top rated" />

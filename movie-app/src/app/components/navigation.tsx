@@ -6,6 +6,8 @@ import { Moon } from "./Icons/moon";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import { RightBtn } from "./RightIcon";
+import { useContext} from "react";
+import { DarkContext } from "./MoviesProvider";
 
 import {
   Select,
@@ -25,7 +27,8 @@ type Genre = {
   name: string;
 };
 
-export const Navigation = ({ dark, setDark }: NavigationProps) => {
+export const Navigation = () => {
+    const {dark,setDark}=useContext(DarkContext)
   const [genres, setGenres] = useState<Genre[]>([]);
   const [check, setCheck] = useState(false);
 
@@ -64,7 +67,7 @@ export const Navigation = ({ dark, setDark }: NavigationProps) => {
   return (
     <div
       className={`w-full flex flex-row justify-between items-center p-5 ${
-        dark == true ? "text-white" : "text-black"
+        dark == true ? "text-white bg-black" : "text-black"
       }`}
     >
       <div

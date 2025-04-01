@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import { DarkContext } from "./MoviesProvider";
+
 type DarkType = {
   dark: Boolean;
 };
-export const RightBtn = (dark: DarkType) => {
+export const RightBtn = () => {
+  const {dark}=useContext(DarkContext)
   return (
     <svg
       width="6"
@@ -12,7 +16,7 @@ export const RightBtn = (dark: DarkType) => {
     >
       <path
         d="M1 9L5 5L1 1"
-        stroke={`${dark ? "#FAFAFA" : "#09090B"}`}
+        stroke={dark ? "#FAFAFA" : "#09090B"}
         stroke-linecap="round"
         stroke-linejoin="round" 
       />

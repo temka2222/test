@@ -52,6 +52,7 @@ export const UpcomingList = () => {
                 url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
                 name={item.title}
                 rating={item.vote_average}
+                id={item.id}
               />
             </div>
           );

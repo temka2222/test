@@ -1,40 +1,54 @@
 "use client";
+import { useEffect,useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { ChevronRight } from "lucide-react";
+import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Button } from "@/components/ui/button";
 import { Star } from "./Icons/starLogo";
 import { MovieList } from "./movieList";
-import { useState } from "react";
+
+import type { Movie } from "../Upcoming/page";
+import type { Response } from "./UpcomingList";
+const ACCESS_TOKEN =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
+
+export type Movie = {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  popularity: number;
+  poster_path: string;
+  title: string;
+  overview: string;
+  vote_average: string;
+};
+
+export type Response = {
+  results: Movie[];
+};
+
 export const Slide = () => {
-  const [ind, setInd] = useState<number>(0);
-  const movieList = [
-    {
-      name: "Wicked",
-      url: "/Slide/wicked.jpeg",
-      rating: "6.9/10",
-      desc: "Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads. ",
-      trailer: "https://www.youtube.com/embed/hDZ7y8RP5HE",
-      id: 1,
-    },
-    {
-      name: "Gladiator 2",
-      url: "/Slide/Gladiator.webp",
-      rating: "6.9/10",
-      desc: "Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads. ",
-      trailer: "https://www.youtube.com/embed/hDZ7y8RP5HE",
-      id: 2,
-    },
-    {
-      name: "Moana 2",
-      url: "/Slide/Moana.jpeg",
-      rating: "6.9/10",
-      desc: "Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads. ",
-      trailer: "https://www.youtube.com/embed/hDZ7y8RP5HE",
-      id: 3,
-    },
-  ];
+   const [ind, setInd] = useState<number>(0);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  useEffect(() => {
+    const getMoviesByAxios = async () => {
+      const { data } = await axios.get<Response>(
+        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1  ",
+        {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      );
+
+      setMovies(data.results);
+    };
+    getMoviesByAxios();
+  }, []);
+ console.log(movies)
 
   return (
     <div className="relative">
@@ -46,7 +60,7 @@ export const Slide = () => {
           showStatus={false}
           interval={3000}
         >
-          {movieList.map((item, indx) => {
+          {movies.slice(0,3).map((item, indx) => {
             return (
               <div className="  flex justify-star items-center">
                 <img

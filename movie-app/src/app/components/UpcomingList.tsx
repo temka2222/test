@@ -18,7 +18,7 @@ export type Movie = {
   vote_average: string;
 };
 
-type Response = {
+export type Response = {
   results: Movie[];
 };
 
@@ -27,7 +27,7 @@ export const UpcomingList = () => {
   useEffect(() => {
     const getMoviesByAxios = async () => {
       const { data } = await axios.get<Response>(
-        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1  ",
         {
           headers: {
             Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -39,7 +39,7 @@ export const UpcomingList = () => {
     };
     getMoviesByAxios();
   }, []);
-  console.log(movies);
+ 
   return (
     <div className="flex flex-col gap-8 p-10">
       <Seemore title="Upcoming" />

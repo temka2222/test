@@ -25,15 +25,15 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <DarkProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[1440px] m-auto`}
-        >
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[1440px] m-auto`}
+      >
+        <DarkProvider>
           <Navigation />
           {children}
           <Footer />
-        </body>
-      </DarkProvider>
+        </DarkProvider>
+      </body>
     </html>
   );
 }

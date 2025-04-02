@@ -1,5 +1,5 @@
 "use client";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { ChevronRight } from "lucide-react";
 import axios from "axios";
@@ -31,12 +31,12 @@ export type Response = {
 };
 
 export const Slide = () => {
-   const [ind, setInd] = useState<number>(0);
+  const [ind, setInd] = useState<number>(0);
   const [movies, setMovies] = useState<Movie[]>([]);
   useEffect(() => {
     const getMoviesByAxios = async () => {
       const { data } = await axios.get<Response>(
-        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1  ",
+        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1  ",
         {
           headers: {
             Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -48,7 +48,7 @@ export const Slide = () => {
     };
     getMoviesByAxios();
   }, []);
- console.log(movies)
+  console.log(movies);
 
   return (
     <div className="relative">
@@ -58,25 +58,25 @@ export const Slide = () => {
           infiniteLoop
           showThumbs={false}
           showStatus={false}
-          interval={3000}
+          interval={5000}
         >
-          {movies.slice(0,3).map((item, indx) => {
+          {movies.slice(3, 6).map((item, indx) => {
             return (
               <div className="  flex justify-star items-center">
                 <img
                   className="h-[600px] w-[1440px] object-fit relative "
                   key={indx}
-                  src={item.url}
+                  src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
                 />
                 <div className=" flex absolute z-10 pl-26  text-justify text-white">
                   <div className="flex flex-col justify-start items-start w-101 h-66 gap-4  ">
                     <p>Now Playing:</p>
-                    <p className="font-bold text-4xl">{item.name}</p>
+                    <p className="font-bold text-4xl">{item.title}</p>
                     <div className="flex flex-row items-center">
                       <Star />
-                      <p>{item.rating} </p>
+                      <p>{item.vote_average} </p>
                     </div>
-                    <p>{item.desc} </p>
+                    <p>{item.overview} </p>
                     <div className="text-black">
                       <Button
                         onClick={() => {
@@ -101,7 +101,6 @@ export const Slide = () => {
         >
           <iframe
             className="relative w-3/4 h-4/5 "
-           
             src={movieList[ind - 1].trailer}
           ></iframe>
           <button

@@ -11,17 +11,12 @@ import { useContext } from "react";
 import { DarkContext } from "./components/MoviesProvider";
 
 export default function Home() {
-   const {dark}=useContext(DarkContext)
-  
+  const { dark } = useContext(DarkContext);
 
-  
   return (
     <div
-      className={`max-w-[1440px] flex flex-col m-auto ${
-        dark ? " text-white bg-black" : " text-black bg-white"
-      } overflow-hidden`}
+      className={`max-w-[1440px] flex flex-col m-auto  dark:bg-black dark:text-white overflow-hidden`}
     >
-      
       {/* <Navigation  /> */}
       <Slide />
       <UpcomingList />

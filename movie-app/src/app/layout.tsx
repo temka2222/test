@@ -6,6 +6,7 @@ import { useState, useContext } from "react";
 import { DarkContext, DarkProvider } from "./components/MoviesProvider";
 import { Navigation } from "./components/navigation";
 import { Footer } from "./components/footer";
+import { GenreProvider } from "./components/GenreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +30,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[1440px] m-auto`}
       >
         <DarkProvider>
-          <Navigation />
-          {children}
-          <Footer />
+          <GenreProvider>
+            <Navigation />
+            {children}
+            <Footer />
+          </GenreProvider>
         </DarkProvider>
       </body>
     </html>

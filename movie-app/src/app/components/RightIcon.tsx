@@ -5,7 +5,7 @@ type DarkType = {
   dark: Boolean;
 };
 export const RightBtn = () => {
-  const {dark}=useContext(DarkContext)
+  const { dark } = useContext(DarkContext);
   return (
     <svg
       width="6"
@@ -18,7 +18,7 @@ export const RightBtn = () => {
         d="M1 9L5 5L1 1"
         stroke={dark ? "#FAFAFA" : "#09090B"}
         stroke-linecap="round"
-        stroke-linejoin="round" 
+        stroke-linejoin="round"
       />
     </svg>
   );

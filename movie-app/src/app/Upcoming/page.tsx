@@ -88,7 +88,7 @@ export default function Home() {
   }, [page]);
 
   return (
-    <div className="flex flex-col gap-8 p-10">
+    <div className="flex flex-col gap-8 p-10 dark:bg-black dark:text-white ">
       <div className="text-2xl">
         <p>Upcoming</p>
       </div>

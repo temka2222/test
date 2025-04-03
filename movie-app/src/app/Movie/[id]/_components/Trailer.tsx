@@ -36,7 +36,7 @@ export const Trailer = ({ id }: { id: string }) => {
 
     getMovie();
   }, [id]);
-  console.log(trailer);
+ 
   return (
     <iframe
       className="w-full h-full "

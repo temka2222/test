@@ -1,7 +1,8 @@
-import { MovieList } from "./movieList";
-import { Seemore } from "./Seemore";
+import { MovieList } from "@/app/components/movieList";
+import { Seemore } from "@/app/components/Seemore";
 import axios from "axios";
 import { useState, useEffect } from "react";
+
 
 
 const ACCESS_TOKEN =
@@ -21,14 +22,14 @@ export type Movie = {
 
 export type Response = {
   results: Movie[];
-};
+};  
 
-export const UpcomingList = () => {
+export const MoreLike = ({ id }: { id: string }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   useEffect(() => {
     const getMoviesByAxios = async () => {
       const { data } = await axios.get<Response>(
-        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1  ",
+         `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1 `,
         {
           headers: {
             Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -43,11 +44,10 @@ export const UpcomingList = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-8 p-10">
-      <Seemore title="Upcoming" />
-      <div className=" grid  xl:grid-cols-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  gap-8">
-        {movies.slice(0, 10).map((item, index) => {
-          return (
+   
+      <div className=" grid xl:grid-cols-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-8 ">
+        {movies.slice(0, 5).map((item, index) => {
+          return (  
             <div key={index}>
          
                 <MovieList
@@ -61,6 +61,6 @@ export const UpcomingList = () => {
           );
         })}
       </div>
-    </div>
+   
   );
 };

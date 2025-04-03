@@ -5,6 +5,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Star } from "@/app/components/Icons/starLogo";
 import { Trailer } from "./_components/Trailer";
+import { map } from "motion/react-client";
+import { Seemore } from "@/app/components/Seemore";
+import { MoreLike } from "./_components/MoreLike";
 type Params = {
   id: string;
 };
@@ -46,10 +49,11 @@ export default function Moviepage() {
     };
 
     getMovie();
+    
   }, [id]);
-
+// console.log(movie)
   return (
-    <div className="max-w-[1440px] flex flex-col m-auto dark:bg-black dark:text-white p-20">
+    <div className="max-w-[1440px] flex flex-col m-auto dark:bg-black dark:text-white p-20 pt-10 gap-9">
       <div className="flex flex-col gap-6">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col gap-1">
@@ -77,9 +81,23 @@ export default function Moviepage() {
           </div>
         </div>
         <div className="flex flex-col gap-5 justify-star">
-          <div></div>
+          <div className="flex flex-row gap-2">
+          {movie.genres?.map((element )=>{
+            return(
+              <div key={element.id} className="pt-1 pb-1 pr-2.5 pl-2.5 rounded-full text-2 font-bold border-solid border">
+                {element.name}
+              </div>
+            )
+          })}
+          </div>
+          <div className="text-3">{movie.overview}</div>
+           {/* <div className="text-3">{movie.overview}</div> */}
         </div>
       </div>
+      <div className="flex flex-col gap-9">
+       <Seemore title="More like this" />
+       <MoreLike id={id}/>
+       </div>
     </div>
   );
 }

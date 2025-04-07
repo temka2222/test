@@ -7,6 +7,7 @@ import { DarkContext, DarkProvider } from "./components/MoviesProvider";
 import { Navigation } from "./components/navigation";
 import { Footer } from "./components/footer";
 import { GenreProvider } from "./components/GenreProvider";
+import { SearchProvider } from "./components/SearchProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
       >
         <DarkProvider>
           <GenreProvider>
-            <Navigation />
+           <SearchProvider>
+            <Navigation/>
             {children}
             <Footer />
+            </SearchProvider>
           </GenreProvider>
         </DarkProvider>
       </body>

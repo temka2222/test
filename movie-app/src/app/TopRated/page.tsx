@@ -11,7 +11,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
@@ -41,12 +40,11 @@ export default function Home() {
   const [page, setPage] = useState<Number>(1);
   const [pageLength, setPageLength] = useState<number[]>([1]);
   const [totalPage, setTotalPage] = useState<number>(0);
-  const [loading,setLoading]=useState<Boolean>(false)
+
   useEffect(() => {
     const getMoviesByAxios = async () => {
-      setLoading(true)
       const { data } = await axios.get<Response>(
-        `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
+        `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -56,7 +54,6 @@ export default function Home() {
 
       setMovies(data.results);
       setTotalPage(data.total_pages);
-      setLoading(false)
     };
 
     getMoviesByAxios();
@@ -93,10 +90,10 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-8 p-10 dark:bg-black dark:text-white ">
       <div className="text-2xl">
-        <p>Upcoming</p>
+        <p>Top Rated</p>
       </div>
       <div className=" grid  xl:grid-cols-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  gap-8">
-        {!loading&& movies.map((item, index) => {
+        {movies.map((item, index) => {
           return (
             <div key={index}>
               <MovieList
@@ -108,19 +105,6 @@ export default function Home() {
             </div>
           );
         })}
-         {loading&&
-       new Array(20).fill(0).map((_, index) => (
-            
-             <div className="w-9/10 aspect-[1/1.2] flex flex-col gap-2">
-      <Skeleton className="w-full h-full rounded-t-2xl" />
-      <div className="flex gap-2">
-        <Skeleton className="h-4 w-[200px]" />
-       
-      </div>
-    </div>
-          ))
-
-      }
       </div>
       <Pagination>
         <PaginationContent>

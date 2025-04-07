@@ -8,6 +8,7 @@ import { Trailer } from "./_components/Trailer";
 import { map } from "motion/react-client";
 import { Seemore } from "@/app/components/Seemore";
 import { MoreLike } from "./_components/MoreLike";
+import Link from "next/link";
 type Params = {
   id: string;
 };
@@ -69,14 +70,14 @@ export default function Moviepage() {
             <div className="text-[13px]">{movie.vote_count}</div>
           </div>
         </div>
-        <div className="flex w-full flex-row gap-8">
-          <div className="flex-1/3  border-solid border">
+        <div className="flex w-full lg:flex-row flex-col-reverse gap-8">
+          <div className="lg:flex-1/3 flex-1/4  border-solid border">
             <img
-              className=" aspect-[1/1.2]"
+              className=" aspect-[1/1.2]  "
               src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
             />
           </div>
-          <div className=" flex-2/3 border-solid border">
+          <div className=" lg:flex-2/3 flex-1/2 aspect-[1/0.5]  border-solid border">
             <Trailer id={id} />
           </div>
         </div>
@@ -95,7 +96,14 @@ export default function Moviepage() {
         </div>
       </div>
       <div className="flex flex-col gap-9">
-       <Seemore title="More like this" />
+        <div className="w-full h-9 flex  flex-row justify-between items-center font-bold text-xl pr-10">
+      <p>More Like this</p>
+      <Link href={`/LikeThis/${id}`} key={id}>
+       <div>
+        See more
+      </div>
+      </Link>
+    </div>
        <MoreLike id={id}/>
        </div>
     </div>

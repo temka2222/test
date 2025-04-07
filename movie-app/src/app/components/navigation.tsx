@@ -9,13 +9,8 @@ import { RightBtn } from "./RightIcon";
 import { useContext } from "react";
 import { DarkContext } from "./MoviesProvider";
 import { useGenres } from "./GenreProvider";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useSearch } from "./SearchProvider";
+
 import {
   Popover,
   PopoverContent,
@@ -38,6 +33,7 @@ type Genre = {
 export const Navigation = () => {
   const { dark, setDark } = useContext(DarkContext);
   const { genres } = useGenres<Genre>();
+  const {search,setSearch}=useSearch();
   const [check, setCheck] = useState(false);
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
@@ -124,8 +120,13 @@ export const Navigation = () => {
             <div className=" flex flex-row  opacity-10   h-8  justify-center items-center">
               <SearchIcon />
             </div>
-
-            <Input type="text" placeholder="Search" />
+            <Link
+                         
+                          href={`/searchName?searchValue=${search}`}
+                          
+                        >
+            <Input onChange={(event) => setSearch(event.target.value)} type="text" placeholder="Search" />
+            </Link>
           </div>
           <button
             onClick={() => {

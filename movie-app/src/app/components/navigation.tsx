@@ -33,7 +33,7 @@ type Genre = {
 export const Navigation = () => {
   const { dark, setDark } = useContext(DarkContext);
   const { genres } = useGenres<Genre>();
-  const {search,setSearch}=useSearch();
+  const { search, setSearch } = useSearch();
   const [check, setCheck] = useState(false);
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
@@ -61,7 +61,7 @@ export const Navigation = () => {
         }`}
       >
         <Logo />
-        <p>Movie Z</p>
+        <p className="font-bold text-[#4338CA]">Movie Z</p>
       </div>
       <div
         className={`flex lg:w-[60%] ${
@@ -120,12 +120,12 @@ export const Navigation = () => {
             <div className=" flex flex-row  opacity-10   h-8  justify-center items-center">
               <SearchIcon />
             </div>
-            <Link
-                         
-                          href={`/searchName?searchValue=${search}`}
-                          
-                        >
-            <Input onChange={(event) => setSearch(event.target.value)} type="text" placeholder="Search" />
+            <Link href={`/searchName?searchValue=${search}`}>
+              <Input
+                onChange={(event) => setSearch(event.target.value)}
+                type="text"
+                placeholder="Search"
+              />
             </Link>
           </div>
           <button

@@ -41,10 +41,10 @@ export default function Home() {
   const [page, setPage] = useState<Number>(1);
   const [pageLength, setPageLength] = useState<number[]>([1]);
   const [totalPage, setTotalPage] = useState<number>(0);
-  const [loading,setLoading]=useState<Boolean>(false)
+  const [loading, setLoading] = useState<Boolean>(false);
   useEffect(() => {
     const getMoviesByAxios = async () => {
-      setLoading(true)
+      setLoading(true);
       const { data } = await axios.get<Response>(
         `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
         {
@@ -56,7 +56,7 @@ export default function Home() {
 
       setMovies(data.results);
       setTotalPage(data.total_pages);
-      setLoading(false)
+      setLoading(false);
     };
 
     getMoviesByAxios();
@@ -93,34 +93,31 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-8 p-10 dark:bg-black dark:text-white ">
       <div className="text-2xl">
-        <p>Upcoming</p>
+        <p className="font-bold">Upcoming</p>
       </div>
       <div className=" grid  xl:grid-cols-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  gap-8">
-        {!loading&& movies.map((item, index) => {
-          return (
-            <div key={index}>
-              <MovieList
-                url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                name={item.title}
-                rating={item.vote_average}
-                id={item.id}
-              />
+        {!loading &&
+          movies.map((item, index) => {
+            return (
+              <div key={index}>
+                <MovieList
+                  url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                  name={item.title}
+                  rating={item.vote_average}
+                  id={item.id}
+                />
+              </div>
+            );
+          })}
+        {loading &&
+          new Array(20).fill(0).map((_, index) => (
+            <div className="w-9/10 aspect-[1/1.2] flex flex-col gap-2">
+              <Skeleton className="w-full h-full rounded-t-2xl" />
+              <div className="flex gap-2">
+                <Skeleton className="h-4 w-[200px]" />
+              </div>
             </div>
-          );
-        })}
-         {loading&&
-       new Array(20).fill(0).map((_, index) => (
-            
-             <div className="w-9/10 aspect-[1/1.2] flex flex-col gap-2">
-      <Skeleton className="w-full h-full rounded-t-2xl" />
-      <div className="flex gap-2">
-        <Skeleton className="h-4 w-[200px]" />
-       
-      </div>
-    </div>
-          ))
-
-      }
+          ))}
       </div>
       <Pagination>
         <PaginationContent>

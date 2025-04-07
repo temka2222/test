@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useGenres } from "../components/GenreProvider";
 import { useSearchParams } from "next/navigation";
+
 import Link from "next/link";
 import { RightBtn } from "../components/RightIcon";
 const ACCESS_TOKEN =
@@ -49,12 +50,14 @@ export default function SearchGenre() {
   }, [genre]);
 
   return (
-    <div className="flex flex-row  gap-8 p-10">
-      <div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 w-fit gap-2 border-solid border p-2 rounded-2xl ">
+    <div className="flex lg:flex-row  flex-col gap-8 p-10 dark:bg-black dark:text-white">
+      <div className="flex flex-col gap-5">
+        <p className="font-bold text-2xl">Search by genre</p>
+        <p>See lists of movies by genre</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[auto_auto_auto] w-fit gap-2  p-1 rounded-2xl ">
           {genres.map((item) => (
             <Link key={item.id} href={`/search?genre=${item.id}`}>
-              <div className="flex flex-row p-2 w-fit hover:bg-gray-200 rounded-lg border-solid border">
+              <div className="flex flex-row p-1 w-fit font-bold hover:bg-gray-200 rounded-full border-solid border">
                 <span>{item.name}</span>
                 <div className="p-2">
                   <RightBtn />

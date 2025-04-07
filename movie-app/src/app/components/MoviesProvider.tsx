@@ -1,5 +1,11 @@
 "use client";
-import { Children, createContext, PropsWithChildren, useState } from "react";
+import {
+  Children,
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useState,
+} from "react";
 export const DarkContext = createContext({});
 export const DarkProvider = ({ children }: PropsWithChildren) => {
   const [dark, setDark] = useState<boolean>(false);
@@ -10,3 +16,4 @@ export const DarkProvider = ({ children }: PropsWithChildren) => {
     </DarkContext.Provider>
   );
 };
+export const usedark = () => useContext(DarkContext);

@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { RightBtn } from "../components/RightIcon";
 import { useSearch } from "../components/SearchProvider";
+import { SearchMovie } from "./_components/SearchMovies";
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
 
@@ -30,9 +31,9 @@ export type Response = {
 export default function SearchGenre() {
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
- const searchValue = searchParams.get("searchValue");
+  const searchValue = searchParams.get("searchValue");
   const { genres } = useGenres();
-  const {search}=useSearch()
+  const { search } = useSearch();
   const [movies, setMovies] = useState<Movie[]>([]);
   useEffect(() => {
     const getMovies = async () => {
@@ -51,28 +52,17 @@ export default function SearchGenre() {
   }, [genre]);
 
   return (
-    <div className="flex flex-row  gap-8 p-10">
-        <div className="flex-1/3 flex-col">
-        <div className=" grid  xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-8">
-          {movies.slice(0, 12).map((item, index) => {
-            return (
-              <div key={index}>
-                <MovieList
-                  url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                  name={item.title}
-                  rating={item.vote_average}
-                  id={item.id}
-                />
-              </div>
-            );
-          })}
-        </div>
+    <div className="flex lg:flex-row flex-col  gap-8 p-10 dark:bg-black dark:text-white">
+      <div className="flex-1/2 flex-col">
+        <SearchMovie />
       </div>
-      <div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 w-fit gap-2 border-solid border p-2 rounded-2xl ">
+      <div className="flex flex-col gap-5">
+        <p className="font-bold text-2xl">Search by genre</p>
+        <p>See lists of movies by genre</p>
+        <div className="grid grid-cols-grid-cols-[auto_auto_auto] sm:grid-cols-3 lg:grid-cols-[auto_auto_auto]  gap-2   rounded-2xl ">
           {genres.map((item) => (
             <Link key={item.id} href={`/search?genre=${item.id}`}>
-              <div className="flex flex-row p-2 w-fit hover:bg-gray-200 rounded-lg border-solid border">
+              <div className="flex flex-row p-1 w-fit font-bold hover:bg-gray-200 rounded-full border-solid border">
                 <span>{item.name}</span>
                 <div className="p-2">
                   <RightBtn />
@@ -82,7 +72,6 @@ export default function SearchGenre() {
           ))}
         </div>
       </div>
-      
     </div>
   );
 }

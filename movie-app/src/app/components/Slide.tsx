@@ -11,24 +11,9 @@ import { MovieList } from "./movieList";
 
 import type { Movie } from "../Upcoming/page";
 import type { Response } from "./UpcomingList";
+import { Trailer } from "../Movie/[id]/_components/Trailer";
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
-
-export type Movie = {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  popularity: number;
-  poster_path: string;
-  title: string;
-  overview: string;
-  vote_average: string;
-};
-
-export type Response = {
-  results: Movie[];
-};
 
 export const Slide = () => {
   const [ind, setInd] = useState<number>(0);
@@ -99,10 +84,9 @@ export const Slide = () => {
         <div
           className={`flex absolute z-100 justify-center items-center inset-0 text-white`}
         >
-          <iframe
-            className="relative w-3/4 h-4/5 "
-            src={movieList[ind - 1].trailer}
-          ></iframe>
+          <div className="relative w-3/4 h-4/5 ">
+            <Trailer id={ind} />
+          </div>
           <button
             onClick={() => {
               setInd(0);

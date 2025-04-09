@@ -28,13 +28,14 @@ export type Response = {
   results: Movie[];
 };
 
-export default function SearchGenre() {
+export default function SearchName() {
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
   const searchValue = searchParams.get("searchValue");
   const { genres } = useGenres();
   const { search } = useSearch();
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [genreID, setGenreID] = useState<number>(0);
   useEffect(() => {
     const getMovies = async () => {
       const { data } = await axios.get<Response>(
@@ -54,21 +55,25 @@ export default function SearchGenre() {
   return (
     <div className="flex lg:flex-row flex-col  gap-8 p-10 dark:bg-black dark:text-white">
       <div className="flex-1/2 flex-col">
-        <SearchMovie />
+        <SearchMovie genreID={genreID} setGenreID={setGenreID} />
       </div>
       <div className="flex flex-col gap-5">
         <p className="font-bold text-2xl">Search by genre</p>
         <p>See lists of movies by genre</p>
         <div className="grid grid-cols-grid-cols-[auto_auto_auto] sm:grid-cols-3 lg:grid-cols-[auto_auto_auto]  gap-2   rounded-2xl ">
           {genres.map((item) => (
-            <Link key={item.id} href={`/search?genre=${item.id}`}>
-              <div className="flex flex-row p-1 w-fit font-bold hover:bg-gray-200 rounded-full border-solid border">
-                <span>{item.name}</span>
-                <div className="p-2">
-                  <RightBtn />
-                </div>
+            <div
+              key={item.id}
+              onClick={() => {
+                setGenreID(item.id);
+              }}
+              className="flex flex-row p-1 w-fit font-bold hover:bg-gray-200 rounded-full border-solid border"
+            >
+              <span>{item.name}</span>
+              <div className="p-2">
+                <RightBtn />
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

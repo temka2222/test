@@ -7,10 +7,16 @@ import {
   useEffect,
   useState,
 } from "react";
-export const GenreContext = createContext({});
+export const GenreContext = createContext<GenreContextType | undefined>(
+  undefined
+);
 type Genre = {
   id: number;
   name: string;
+};
+type GenreContextType = {
+  genres: Genre[];
+  setGenres: (value: Genre[]) => void;
 };
 export const GenreProvider = ({ children }: PropsWithChildren) => {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -35,7 +41,19 @@ export const GenreProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <GenreContext.Provider value={{ genres }}>{children}</GenreContext.Provider>
+    <GenreContext.Provider value={{ genres, setGenres }}>
+      {children}
+    </GenreContext.Provider>
   );
 };
-export const useGenres = () => useContext(GenreContext);
+
+export const useGenres = () => {
+  const context = useContext(GenreContext);
+
+  // If context is undefined (i.e., the provider is not used correctly), throw an error
+  if (!context) {
+    throw new Error("useGenres must be used within a GenreProvider");
+  }
+
+  return context;
+};

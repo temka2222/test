@@ -17,8 +17,8 @@ export const RightBtn = () => {
       <path
         d="M1 9L5 5L1 1"
         stroke={dark ? "#FAFAFA" : "#09090B"}
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

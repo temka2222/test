@@ -1,7 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { RightArrow } from "./Icons/rightArrow";
-export const Seemore = (props: string) => {
+type PropsType = {
+  title: string;
+};
+export const Seemore = (props: PropsType) => {
   const router = useRouter();
   return (
     <div className="w-full h-9 flex  flex-row justify-between items-center font-bold text-xl pr-10">

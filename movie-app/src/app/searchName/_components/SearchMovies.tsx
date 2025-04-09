@@ -31,14 +31,22 @@ export type Response = {
   results: Movie[];
 };
 
-export const SearchMovie = () => {
+export const SearchMovie = ({
+  genreID,
+  setGenreID,
+}: {
+  genreID: number;
+  setGenreID: (value: number) => void;
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState<Number>(1);
   const [pageLength, setPageLength] = useState<number[]>([1]);
   const { search } = useSearch();
+  const [totalPage, setTotalPage] = useState<number>(0);
 
   useEffect(() => {
+    setGenreID(0);
     const getMoviesByAxios = async () => {
       setLoading(true);
       const { data } = await axios.get<Response>(
@@ -52,41 +60,54 @@ export const SearchMovie = () => {
 
       setMovies(data.results);
       setLoading(false);
-    
+
       setTotalPage(data.total_results);
     };
 
     getMoviesByAxios();
   }, [page, search]);
 
-  const prevPage = () => {
-    if (page > 1) {
-      setPage((prev) => prev - 1);
-    }
-  };
-  const nextPage = () => {
-    if (page < 56) {
-      setPage((prev) => prev + 1);
-    }
-  };
+  // const prevPage = () => {
+  //   if (page > 1) {
+  //     setPage((prev) => prev - 1);
+  //   }
+  // };
+  // const nextPage = () => {
+  //   if (page < 56) {
+  //     setPage((prev) => prev + 1);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (page == 1) {
-      setPageLength([]);
-    }
-    if (page == 2) {
-      setPageLength([2]);
-    }
-    if (page == 3) {
-      setPageLength([2, 3]);
-    }
-    if (page == 4) {
-      setPageLength([2, 3]);
-    }
-    if (page > 4) {
-      setPageLength([, page - 3, page - 2]);
-    }
-  }, [page]);
+  // useEffect(() => {
+  //   if (page == 1) {
+  //     setPageLength([]);
+  //   }
+  //   if (page == 2) {
+  //     setPageLength([2]);
+  //   }
+  //   if (page == 3) {
+  //     setPageLength([2, 3]);
+  //   }
+  //   if (page == 4) {
+  //     setPageLength([2, 3]);
+  //   }
+  //   if (page > 4) {
+  //     setPageLength([, page - 3, page - 2]);
+  //   }
+  // }, [page]);
+  // useEffect(() => {
+  //   const filterMovie = movies.filter((item) => {
+  //     return item.genre_ids.some((element) => element === genreID);
+  //   });
+  //   setFilter(filterMovie);
+  // }, [genreID]);
+
+  const filterMovie = movies?.length
+    ? movies.filter(
+        (item) =>
+          Array.isArray(item.genre_ids) && item.genre_ids.includes(genreID)
+      )
+    : [];
 
   return (
     <div className="flex flex-col gap-8   dark:bg-black dark:text-white ">
@@ -94,7 +115,7 @@ export const SearchMovie = () => {
         {pageLength} results for "{search}"
       </p>
       <div className=" grid  xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  gap-8">
-        {!loading &&
+        {genreID == 0 &&
           movies.slice(0, 10).map((item, index) => {
             return (
               <div key={index}>
@@ -109,15 +130,31 @@ export const SearchMovie = () => {
           })}
         {loading &&
           new Array(10).fill(0).map((_, index) => (
-            <div className="w-9/10 aspect-[1/1.2] flex flex-col gap-2">
+            <div
+              key={index}
+              className="w-9/10 aspect-[1/1.2] flex flex-col gap-2"
+            >
               <Skeleton className="w-full h-full rounded-t-2xl" />
               <div className="flex gap-2">
                 <Skeleton className="h-4 w-[200px]" />
               </div>
             </div>
           ))}
+        {genreID !== 0 &&
+          filterMovie.slice(0, 10).map((item, index) => {
+            return (
+              <div key={index}>
+                <MovieList
+                  url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                  name={item.title}
+                  rating={item.vote_average}
+                  id={item.id}
+                />
+              </div>
+            );
+          })}
       </div>
-      <Pagination>
+      {/* <Pagination>
         <PaginationContent>
           {page > 1 && (
             <PaginationItem>
@@ -162,7 +199,7 @@ export const SearchMovie = () => {
             <PaginationNext onClick={nextPage} href="#" />
           </PaginationItem>
         </PaginationContent>
-      </Pagination>
+      </Pagination> */}
     </div>
   );
 };

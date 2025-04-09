@@ -29,12 +29,19 @@ type Genre = {
   id: number;
   name: string;
 };
-
+type DarkType = {
+  dark: boolean;
+  setDark: (value: boolean) => void;
+};
+type SearchType = {
+  search: string;
+  setSearch: (value: string) => void;
+};
 export const Navigation = () => {
-  const { dark, setDark } = useContext(DarkContext);
-  const { genres } = useGenres<Genre>();
-  const { search, setSearch } = useSearch();
-  const [check, setCheck] = useState(false);
+  const { dark, setDark } = useContext<DarkType>(DarkContext);
+  const { genres }: { genres: Genre[] } = useGenres();
+  const { search, setSearch }: SearchType = useSearch();
+  const [check, setCheck] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
 
@@ -47,11 +54,11 @@ export const Navigation = () => {
     setCheck(true);
   }, []);
 
-  const [selectedGenre, setSelectedGenre] = useState<Genre[]>("Genre");
+  const [selectedGenre, setSelectedGenre] = useState<Genre[] | string>("Genre");
   const [searchbtn, setSearchbtn] = useState<boolean>(false);
   return (
     <div
-      className={`w-full flex flex-row justify-between items-center p-5 ${
+      className={`w-full relative flex flex-row justify-between items-center p-5 ${
         dark == true ? "text-white bg-black" : "text-black"
       }`}
     >
@@ -77,28 +84,28 @@ export const Navigation = () => {
             <div>
               <Popover>
                 <PopoverTrigger className="w-full h-9 rounded-sm">
-                  <Button variant="outline">
-                    {`${selectedGenre ? selectedGenre : ""}`}
-                  </Button>
+                  <div className="flex items-center p-2 h-9 border-solid solid-grey border rounded-sm ">{`${
+                    selectedGenre ? selectedGenre : ""
+                  }`}</div>
                 </PopoverTrigger>
 
                 <PopoverContent
                   className={`${
                     dark ? "text-white bg-black" : "bg-white text-black"
-                  } w-4/5`}
+                  } w-fit`}
                 >
                   <div className="flex flex-col gap-3 p-4">
                     <p className="text-2xl font-bold">Genres</p>
                     <p>See lists of movies by genre</p>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 w-fit gap-3 border-solid border p-2 rounded-2xl ">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[auto_auto_auto_auto] w-fit gap-3 border-solid border p-2 rounded-2xl ">
                       {genres.map((item) => (
                         <Link
                           key={item.id}
                           href={`/search?genre=${item.id}`}
                           onClick={() => setSelectedGenre(item.name)}
                         >
-                          <div className="flex flex-row p-2 w-fit hover:bg-gray-200 rounded-lg border-solid border s">
+                          <div className="flex flex-row p-1 w-fit hover:bg-gray-200 rounded-lg border-solid border s">
                             <span>{item.name}</span>
                             <div className="p-2">
                               <RightBtn dark={dark} />
@@ -120,13 +127,13 @@ export const Navigation = () => {
             <div className=" flex flex-row  opacity-10   h-8  justify-center items-center">
               <SearchIcon />
             </div>
-            <Link href={`/searchName?searchValue=${search}`}>
-              <Input
-                onChange={(event) => setSearch(event.target.value)}
-                type="text"
-                placeholder="Search"
-              />
-            </Link>
+            {/* <Link href={`/searchName?searchValue=${search}`}> */}
+            <Input
+              onChange={(event) => setSearch(event.target.value)}
+              type="text"
+              placeholder="Search"
+            />
+            {/* </Link> */}
           </div>
           <button
             onClick={() => {
@@ -165,6 +172,9 @@ export const Navigation = () => {
           <Moon dark={dark} />
         </button>
       </div>
+      {search && (
+        <div className="flex flex-col absolute w-1/3 aspect-[1/1.2] border-solid border-black border top-[90%] left-[30%] z-500 "></div>
+      )}
     </div>
   );
 };

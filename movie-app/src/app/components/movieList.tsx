@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 type MovieListProps = {
   url: string;
   name: string;
-  rating: string;
+  rating: number;
   id: number;
 };
 type DarkType = {

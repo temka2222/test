@@ -52,7 +52,7 @@ export const SearchMovie = () => {
 
       setMovies(data.results);
       setLoading(false);
-      console.log("data", data);
+    
       setTotalPage(data.total_results);
     };
 

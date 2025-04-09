@@ -8,6 +8,7 @@ import { Trailer } from "./_components/Trailer";
 import { MoreLike } from "./_components/MoreLike";
 import Link from "next/link";
 import { RightArrow } from "@/app/components/Icons/rightArrow";
+import { StaffInformation } from "./_components/staffInformation";
 type Params = {
   id: string;
 };
@@ -97,7 +98,10 @@ export default function Moviepage() {
             })}
           </div>
           <div className="text-3">{movie.overview}</div>
-          {/* <div className="text-3">{movie.overview}</div> */}
+         
+        </div>
+        <div>
+          <StaffInformation id={id}/>
         </div>
       </div>
       <div className="flex flex-col gap-9">

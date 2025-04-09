@@ -15,9 +15,9 @@ export default function Home() {
 
   return (
     <div
-      className={`min-w-[1440px] flex flex-col m-auto  dark:bg-black dark:text-white overflow-hidden`}
+      className={`max-w-[1440px] flex flex-col m-auto  dark:bg-black dark:text-white overflow-hidden`}
     >
-      {/* <Navigation  /> */}
+      {/* <Navigation  /> */} 
       <Slide />
       <UpcomingList />
       <PopularList />

@@ -39,14 +39,14 @@ const [crew,setCrew]=useState<Crew[]>([])
 
     getMovie();
   }, [id]);
-  const director:string[]=crew.filter(item => item.job === "Director" )
+  const director:string[]=crew?.filter(item => item.job === "Director" )
   .map(director => director.name);
-  const writers:string[]=crew.filter(person => person.known_for_department === "Writing" ).slice(0,1)
+  const writers:string[]=crew?.filter(person => person.known_for_department === "Writing" ).slice(0,1)
   .map(writer => writer.name);
-   const stars:string=cast[0].name
+   const stars:string=cast[0]?.name
   console.log(stars)
  
 return(
     <div>hiiiii</div>
 )
-}
+} 

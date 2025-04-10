@@ -68,7 +68,7 @@ export default function SearchGenre() {
         </div>
       </div>
       <div className="flex-1/3 flex-col">
-        <div className=" grid  xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-8">
+        <div className=" grid  xl:grid-cols-4 lg:grid-cols-4   md:grid-cols-2 sm:grid-cols-2 gap-8">
           {movies.slice(0, 12).map((item, index) => {
             return (
               <div key={index}>

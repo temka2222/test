@@ -114,7 +114,7 @@ export const SearchMovie = ({
       <p className="font-bold text-2xl">
         {pageLength} results for "{search}"
       </p>
-      <div className=" grid  xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  gap-8">
+      <div className=" grid  xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2  gap-8">
         {genreID == 0 &&
           movies.slice(0, 10).map((item, index) => {
             return (

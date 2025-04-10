@@ -45,7 +45,7 @@ export const MoreLike = ({ id }: { id: string }) => {
 
   return (
    
-      <div className=" grid xl:grid-cols-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-8 ">
+      <div className=" grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-2 gap-8 ">
         {movies.slice(0, 5).map((item, index) => {
           return (  
             <div key={index}>

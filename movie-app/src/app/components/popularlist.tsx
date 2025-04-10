@@ -34,7 +34,7 @@ export const PopularList = () => {
   return (
     <div className="flex flex-col gap-8 p-10 pt-0">
       <Seemore title="Popular" />
-      <div className="grid xl:grid-cols-5 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  gap-8  ">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-2  gap-8  ">
       
         {!loading && movies.slice(0, 10).map((item, index) => {
           return (

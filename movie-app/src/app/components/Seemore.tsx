@@ -7,7 +7,7 @@ type PropsType = {
 export const Seemore = (props: PropsType) => {
   const router = useRouter();
   return (
-    <div className="w-full h-9 flex  flex-row justify-between items-center font-bold text-xl pr-10">
+    <div className="w-full h-9 flex  flex-row justify-between items-center font-bold text-[100%] pr-10">
       <p>{props.title}</p>
       <button
         className="flex flex-row items-center gap-2"

@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { SearchMovies } from "./SearchMenu";
 
 type NavigationProps = {
   dark: boolean;
@@ -44,6 +45,7 @@ export const Navigation = () => {
   const [check, setCheck] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
+   const[searchClicked,setSearchClicked]=useState<boolean>(false)
 
   useEffect(() => {
     if (!check) return;
@@ -127,13 +129,15 @@ export const Navigation = () => {
             <div className=" flex flex-row  opacity-10   h-8  justify-center items-center">
               <SearchIcon />
             </div>
-            {/* <Link href={`/searchName?searchValue=${search}`}> */}
+           
             <Input
-              onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {setSearch(event.target.value);
+              setSearchClicked(true)
+            }}
               type="text"
               placeholder="Search"
             />
-            {/* </Link> */}
+           
           </div>
           <button
             onClick={() => {
@@ -172,8 +176,8 @@ export const Navigation = () => {
           <Moon dark={dark} />
         </button>
       </div>
-      {search && (
-        <div className="flex flex-col absolute w-1/3 aspect-[1/1.2] border-solid border-black border top-[90%] left-[30%] z-500 "></div>
+      {searchClicked  && (
+       <SearchMovies searchClicked={searchClicked} setSearchClicked={setSearchClicked}/>
       )}
     </div>
   );

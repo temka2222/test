@@ -45,7 +45,7 @@ export const Navigation = () => {
   const [check, setCheck] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
-   const[searchClicked,setSearchClicked]=useState<boolean>(false)
+  const [searchClicked, setSearchClicked] = useState<boolean>(false);
 
   useEffect(() => {
     if (!check) return;
@@ -129,15 +129,15 @@ export const Navigation = () => {
             <div className=" flex flex-row  opacity-10   h-8  justify-center items-center">
               <SearchIcon />
             </div>
-           
+
             <Input
-            onChange={(event) => {setSearch(event.target.value);
-              setSearchClicked(true)
-            }}
+              onChange={(event) => {
+                setSearch(event.target.value);
+                setSearchClicked(true);
+              }}
               type="text"
               placeholder="Search"
             />
-           
           </div>
           <button
             onClick={() => {
@@ -176,8 +176,11 @@ export const Navigation = () => {
           <Moon dark={dark} />
         </button>
       </div>
-      {searchClicked  && (
-       <SearchMovies searchClicked={searchClicked} setSearchClicked={setSearchClicked}/>
+      {searchClicked !== false && search !== "" && (
+        <SearchMovies
+          searchClicked={searchClicked}
+          setSearchClicked={setSearchClicked}
+        />
       )}
     </div>
   );

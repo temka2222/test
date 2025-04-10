@@ -98,10 +98,9 @@ export default function Moviepage() {
             })}
           </div>
           <div className="text-3">{movie.overview}</div>
-         
         </div>
         <div>
-          <StaffInformation id={id}/>
+          <StaffInformation id={id} />
         </div>
       </div>
       <div className="flex flex-col gap-9">

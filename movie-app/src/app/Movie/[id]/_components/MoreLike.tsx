@@ -15,7 +15,7 @@ export type Movie = {
   poster_path: string;
   title: string;
   overview: string;
-  vote_average: string;
+  vote_average: number;
 };
 
 export type Response = {

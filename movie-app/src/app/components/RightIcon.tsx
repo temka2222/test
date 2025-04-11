@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { DarkContext } from "./MoviesProvider";
 
-type DarkType = {
-  dark: Boolean;
-};
+// type DarkType = {
+//   dark: Boolean;
+// };
 export const RightBtn = () => {
   const { dark } = useContext(DarkContext);
   return (

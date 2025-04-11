@@ -1,6 +1,6 @@
-import { usedark } from "../MoviesProvider";
+import { useDark } from "../MoviesProvider";
 export const RightArrow = () => {
-  const { dark } = usedark();
+  const { dark } = useDark();
   return (
     <svg
       width="18"

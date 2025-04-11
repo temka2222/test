@@ -28,7 +28,7 @@ type Movie = {
   poster_path: string;
   title: string;
   overview: string;
-  vote_average: string;
+  vote_average: number;
   release_date: string;
 };
 export type Response = {
@@ -40,7 +40,7 @@ const ACCESS_TOKEN =
 export default function Moviepage() {
   const { id } = useParams<Params>();
   const [movie, setMovie] = useState<Movie[]>([]);
-  const [page, setPage] = useState<Number>(1);
+  const [page, setPage] = useState<number>(1);
   const [pageLength, setPageLength] = useState<number[]>([1]);
   useEffect(() => {
     const getMoviesByAxios = async () => {
@@ -81,7 +81,7 @@ export default function Moviepage() {
       setPageLength([2, 3]);
     }
     if (page > 4) {
-      setPageLength([, page - 3, page - 2]);
+      setPageLength([page - 3, page - 2]);
     }
   }, [page]);
   // console.log(movie)

@@ -8,13 +8,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Button } from "@/components/ui/button";
 import { Star } from "./Icons/starLogo";
 import { MovieList } from "./movieList";
-
 import type { Movie } from "../Upcoming/page";
-import type { Response } from "./UpcomingList";
+
 import { Trailer } from "../Movie/[id]/_components/Trailer";
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
-
+type Response = {
+  results: Movie[];
+};
 export const Slide = () => {
   const [ind, setInd] = useState<number>(0);
   const [movies, setMovies] = useState<Movie[]>([]);

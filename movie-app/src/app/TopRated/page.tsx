@@ -24,20 +24,21 @@ export type Movie = {
   poster_path: string;
   title: string;
   overview: string;
-  vote_average: string;
+  vote_average: number;
 };
 
 type Response = {
   results: Movie[];
+  total_pages: number;
 };
 type PageType = {
   page: number;
-  setPage: void;
+  setPage: (value: number) => void;
 };
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<Number>(1);
+  const [page, setPage] = useState<number>(1);
   const [pageLength, setPageLength] = useState<number[]>([1]);
   const [totalPage, setTotalPage] = useState<number>(0);
 
@@ -83,7 +84,7 @@ export default function Home() {
       setPageLength([2, 3]);
     }
     if (page > 4) {
-      setPageLength([, page - 3, page - 2]);
+      setPageLength([page - 3, page - 2]);
     }
   }, [page]);
 

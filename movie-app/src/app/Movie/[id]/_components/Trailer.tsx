@@ -9,7 +9,7 @@ type Trailer = {
 export type Response = {
   results: Trailer[];
 };
-export const Trailer = ({ id }: { id: number }) => {
+export const Trailer = ({ id }: { id: string }) => {
   const [trailer, setTrailer] = useState<Trailer[]>([]);
   useEffect(() => {
     const getMovie = async () => {

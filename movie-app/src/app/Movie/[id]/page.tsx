@@ -24,20 +24,20 @@ type Movie = {
   overview: string;
   vote_average: string;
   release_date: string;
+  vote_count: string;
+  genres: string[];
 };
-export type Response = {
-  results: Movie[];
-};
+
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
 
 export default function Moviepage() {
   const { id } = useParams<Params>();
-  const [movie, setMovie] = useState<Movie[]>([]);
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
     const getMovie = async () => {
-      const { data } = await axios.get<Response>(
+      const { data } = await axios.get<Movie>(
         `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
         {
           headers: {
@@ -57,8 +57,8 @@ export default function Moviepage() {
       <div className="flex flex-col gap-6">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-col gap-1">
-            <div className="text-2xl font-bold">{movie.title}</div>
-            <div className="text-[13px]">{movie.release_date}</div>
+            <div className="text-2xl font-bold">{movie?.title}</div>
+            <div className="text-[13px]">{movie?.release_date}</div>
           </div>
           <div className="flex flex-col gap-1 justify-start">
             <div className="text-[13px]">Rating</div>
@@ -66,9 +66,9 @@ export default function Moviepage() {
               <Star />
               <div className="flex flex-col">
                 <p>
-                  <span className="font-bold">{movie.vote_average}</span>/10
+                  <span className="font-bold">{movie?.vote_average}</span>/10
                 </p>
-                <div className="text-[13px]">{movie.vote_count}</div>
+                <div className="text-[13px]">{movie?.vote_count}</div>
               </div>
             </div>
           </div>
@@ -86,10 +86,10 @@ export default function Moviepage() {
         </div>
         <div className="flex flex-col gap-5 justify-star">
           <div className="flex flex-row gap-2">
-            {movie.genres?.map((element) => {
+            {movie?.genres?.map((element, indx) => {
               return (
                 <div
-                  key={element.id}
+                  key={indx}
                   className="pt-1 pb-1 pr-2.5 pl-2.5 rounded-full text-2 font-bold border-solid border"
                 >
                   {element.name}

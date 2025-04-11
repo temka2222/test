@@ -49,10 +49,14 @@ export const Navigation = () => {
 
   useEffect(() => {
     if (!check) return;
-    window.localStorage.setItem("dark", JSON.stringify(dark));
+    window.localStorage.setItem("dark", dark ? "1" : "0");
   }, [dark, check]);
   useEffect(() => {
-    setDark(JSON.parse(localStorage.getItem("dark")));
+    const storagedValue: string | null = localStorage.getItem("dark");
+    if (storagedValue == "1") {
+      setDark(true);
+    } else setDark(false);
+
     setCheck(true);
   }, []);
 
@@ -110,7 +114,7 @@ export const Navigation = () => {
                           <div className="flex flex-row p-1 w-fit hover:bg-gray-200 rounded-lg border-solid border s">
                             <span>{item.name}</span>
                             <div className="p-2">
-                              <RightBtn dark={dark} />
+                              <RightBtn />
                             </div>
                           </div>
                         </Link>

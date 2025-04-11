@@ -21,9 +21,16 @@ type Movie = {
 export type Response = {
   results: Movie[];
 };
+type SearchWovieType = {
+  searchClicked: boolean;
+  setSearchClicked: (value: boolean) => void;
+};
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
-export const SearchMovies = ({ searchClicked, setSearchClicked }) => {
+export const SearchMovies = ({
+  searchClicked,
+  setSearchClicked,
+}: SearchWovieType) => {
   const { search, setSearch } = useSearch();
   const [movies, setMovies] = useState<Movie[]>([]);
 

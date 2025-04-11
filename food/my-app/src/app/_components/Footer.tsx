@@ -1,7 +1,7 @@
 "use client";
-import { FbLogo } from "./imageAsset/FacebookLogo";
-import { InstLogo } from "./imageAsset/InstagramIcon";
-import { Logo } from "./imageAsset/Logo";
+import { FbLogo } from "./assets/FacebookLogo";
+import { InstLogo } from "./assets/InstagramIcon";
+import { Logo } from "./assets/Logo";
 import { motion } from "framer-motion";
 
 export const Footer = () => {

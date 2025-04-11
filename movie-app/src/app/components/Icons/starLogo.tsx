@@ -1,6 +1,6 @@
-import { usedark } from "../MoviesProvider";
+import { useDark } from "../MoviesProvider";
 export const Star = () => {
-  const { dark } = usedark();
+  const { dark } = useDark();
   return (
     <svg
       width="16"

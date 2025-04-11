@@ -15,7 +15,7 @@ type Movie = {
   poster_path: string;
   title: string;
   overview: string;
-  vote_average: string;
+  vote_average: number;
 };
 
 export type Response = {
@@ -49,7 +49,10 @@ export const SearchMovies = ({ searchClicked, setSearchClicked }) => {
     <div className="flex flex-col absolute w-1/3 aspect-[1/1.2]  gap-2 bg-white   border-solid border-black border top-[80%] left-[30%] z-500 ">
       {movies.slice(0, 5).map((item, index) => {
         return (
-          <div className=" w-full border-solid  border-t-0 border-r-0 border-b">
+          <div
+            key={index}
+            className=" w-full border-solid  border-t-0 border-r-0 border-b"
+          >
             <div className="w-full h-1/5 " key={index}>
               <SearchedMovieList
                 url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
@@ -67,7 +70,9 @@ export const SearchMovies = ({ searchClicked, setSearchClicked }) => {
         onClick={() => setSearchClicked(false)}
         href={`/searchName?searchValue=${search}`}
       >
-        <div className="font-bold p-2">See all result for "{search}"</div>
+        <div className="font-bold p-2">
+          See all result for &quot;{search}&quot;
+        </div>
       </Link>
     </div>
   );

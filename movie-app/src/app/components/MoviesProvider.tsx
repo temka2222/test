@@ -20,4 +20,4 @@ export const DarkProvider = ({ children }: PropsWithChildren) => {
     </DarkContext.Provider>
   );
 };
-export const usedark = () => useContext(DarkContext);
+export const useDark = () => useContext(DarkContext);

@@ -112,7 +112,7 @@ export const SearchMovie = ({
   return (
     <div className="flex flex-col gap-8   dark:bg-black dark:text-white ">
       <p className="font-bold text-2xl">
-        {pageLength} results for "{search}"
+        {pageLength} results for &quot;{search}&quot;
       </p>
       <div className=" grid  xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2  gap-8">
         {genreID == 0 &&

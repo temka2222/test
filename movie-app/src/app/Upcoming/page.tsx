@@ -111,7 +111,10 @@ export default function Home() {
           })}
         {loading &&
           new Array(20).fill(0).map((_, index) => (
-            <div className="w-9/10 aspect-[1/1.2] flex flex-col gap-2">
+            <div
+              key={index}
+              className="w-9/10 aspect-[1/1.2] flex flex-col gap-2"
+            >
               <Skeleton className="w-full h-full rounded-t-2xl" />
               <div className="flex gap-2">
                 <Skeleton className="h-4 w-[200px]" />

@@ -47,7 +47,7 @@ export const Slide = () => {
         >
           {movies.slice(3, 6).map((item, indx) => {
             return (
-              <div className="  flex justify-star items-center">
+              <div key={indx} className="  flex justify-star items-center">
                 <img
                   className="h-[600px] w-[1440px] object-fit relative "
                   key={indx}

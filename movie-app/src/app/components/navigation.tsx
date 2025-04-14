@@ -21,10 +21,7 @@ import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SearchMovies } from "./SearchMenu";
 
-type NavigationProps = {
-  dark: boolean;
-  setDark: (value: boolean) => void;
-};
+
 
 type Genre = {
   id: number;
@@ -46,6 +43,7 @@ export const Navigation = () => {
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
   const [searchClicked, setSearchClicked] = useState<boolean>(false);
+
 
   useEffect(() => {
     if (!check) return;
@@ -109,7 +107,7 @@ export const Navigation = () => {
                         <Link
                           key={item.id}
                           href={`/search?genre=${item.id}`}
-                          onClick={() => setSelectedGenre(item.name)}
+                          onClick={() => {setSelectedGenre(item.name);}}
                         >
                           <div className="flex flex-row p-1 w-fit hover:bg-gray-200 rounded-lg border-solid border s">
                             <span>{item.name}</span>

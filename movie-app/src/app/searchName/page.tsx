@@ -67,7 +67,13 @@ export default function SearchName() {
               onClick={() => {
                 setGenreID(item.id);
               }}
-              className="flex flex-row p-1 w-fit font-bold hover:bg-gray-200 rounded-full border-solid border"
+              className={`
+  flex flex-row p-1 w-fit font-bold rounded-full border border-solid hover:bg-gray-200
+  ${genreID === item.id 
+    ? "bg-black text-white dark:bg-white dark:text-black" 
+    : "bg-white text-black dark:bg-black dark:text-white"
+  }
+`}
             >
               <span>{item.name}</span>
               <div className="p-2">

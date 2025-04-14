@@ -1,4 +1,4 @@
-import { MovieList } from "@/app/components/movieList";
+
 
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -6,15 +6,9 @@ import { useSearch } from "@/app/components/SearchProvider";
 import { Skeleton } from "@/components/ui/skeleton";
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+
+import { PaginationComp } from "@/app/components/Pagination";
+import { MovieList } from "@/app/components/movieList";
 export type Movie = {
   adult: boolean;
   backdrop_path: string;
@@ -24,11 +18,12 @@ export type Movie = {
   poster_path: string;
   title: string;
   overview: string;
-  vote_average: string;
+  vote_average: number;
 };
 
 export type Response = {
   results: Movie[];
+  total_pages:number;
 };
 
 export const SearchMovie = ({
@@ -40,7 +35,7 @@ export const SearchMovie = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<Number>(1);
+  const [page, setPage] = useState<number>(1);
   const [pageLength, setPageLength] = useState<number[]>([1]);
   const { search } = useSearch();
   const [totalPage, setTotalPage] = useState<number>(0);
@@ -61,46 +56,14 @@ export const SearchMovie = ({
       setMovies(data.results);
       setLoading(false);
 
-      setTotalPage(data.total_results);
+      setTotalPage(data.total_pages);
     };
 
     getMoviesByAxios();
   }, [page, search]);
 
-  // const prevPage = () => {
-  //   if (page > 1) {
-  //     setPage((prev) => prev - 1);
-  //   }
-  // };
-  // const nextPage = () => {
-  //   if (page < 56) {
-  //     setPage((prev) => prev + 1);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (page == 1) {
-  //     setPageLength([]);
-  //   }
-  //   if (page == 2) {
-  //     setPageLength([2]);
-  //   }
-  //   if (page == 3) {
-  //     setPageLength([2, 3]);
-  //   }
-  //   if (page == 4) {
-  //     setPageLength([2, 3]);
-  //   }
-  //   if (page > 4) {
-  //     setPageLength([, page - 3, page - 2]);
-  //   }
-  // }, [page]);
-  // useEffect(() => {
-  //   const filterMovie = movies.filter((item) => {
-  //     return item.genre_ids.some((element) => element === genreID);
-  //   });
-  //   setFilter(filterMovie);
-  // }, [genreID]);
+ console.log("ss",movies)
+      console.log(search)
 
   const filterMovie = movies?.length
     ? movies.filter(
@@ -111,9 +74,15 @@ export const SearchMovie = ({
 
   return (
     <div className="flex flex-col gap-8   dark:bg-black dark:text-white ">
-      <p className="font-bold text-2xl">
-        {pageLength} results for &quot;{search}&quot;
-      </p>
+      {movies.length === 0 ? (
+  <p className="text-xl font-semibold text-center mt-10">
+    No results found.
+  </p>
+) : (
+  <p className="text-xl font-semibold">
+    {movies.length} results for "{search}"
+  </p>
+)}
       <div className=" grid  xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2  gap-8">
         {genreID == 0 &&
           movies.slice(0, 10).map((item, index) => {
@@ -145,7 +114,9 @@ export const SearchMovie = ({
             return (
               <div key={index}>
                 <MovieList
-                  url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                  url={item.poster_path 
+  ? `https://image.tmdb.org/t/p/original${item.poster_path}` 
+  : "/default.jpeg"}
                   name={item.title}
                   rating={item.vote_average}
                   id={item.id}
@@ -154,52 +125,12 @@ export const SearchMovie = ({
             );
           })}
       </div>
-      {/* <Pagination>
-        <PaginationContent>
-          {page > 1 && (
-            <PaginationItem>
-              <PaginationPrevious onClick={prevPage} href="#" />
-            </PaginationItem>
-          )}
-          <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          {page > 3 && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-
-          {pageLength.slice(0, 3).map((item) => (
-            <PaginationItem
-              className={`${page == item ? "border-solid border" : ""}`}
-              key={item}
-            >
-              <PaginationLink
-                onClick={() => {
-                  setPage(item);
-                }}
-                href="#"
-              >
-                {item}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          {page > 4 && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          {page > 4 && (
-            <PaginationItem>
-              <PaginationLink href="#">{page}</PaginationLink>
-            </PaginationItem>
-          )}
-          <PaginationItem>
-            <PaginationNext onClick={nextPage} href="#" />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination> */}
+         <PaginationComp
+              currentPage={page}
+              totalPages={totalPage}
+              onPageChange={(newPage) => setPage(newPage)}
+            />
+           
     </div>
   );
 };

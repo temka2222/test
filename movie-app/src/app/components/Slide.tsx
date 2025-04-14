@@ -7,7 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Button } from "@/components/ui/button";
 import { Star } from "./Icons/starLogo";
-import { MovieList } from "./movieList";
+
 import type { Movie } from "../Upcoming/page";
 
 import { Trailer } from "../Movie/[id]/_components/Trailer";

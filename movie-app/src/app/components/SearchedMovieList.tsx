@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { RightArrow } from "./Icons/rightArrow";
+import { urlToHttpOptions } from "url";
 
 type MovieListProps = {
   url: string;
@@ -12,6 +13,7 @@ type MovieListProps = {
   rating: number;
   id: number;
   searchClicked: boolean;
+  year:string
   setSearchClicked: (value: boolean) => void;
 };
 type DarkType = {
@@ -24,43 +26,53 @@ export const SearchedMovieList = ({
   rating,
   id,
   searchClicked,
-
+  year,
   setSearchClicked,
 }: MovieListProps) => {
   return (
-    <Link href={`/Movie/${id}`} key={id}>
-      <div className="w-full flex flex-row items-end p-1">
+   
+      <div className="w-full  flex flex-row items-end p-1">
         <div
-          onClick={() => setSearchClicked(false)}
-          className=" flex flex-row gap-2 p-2 "
+        
+          className=" flex flex-row gap-2 p-2 h-1/5  "
         >
-          <img
-            className="w-1/5 h-1/5 rounded-lg object-cover"
+         <img
+          className="w-1/5 h-1/5 rounded-lg object-cover"
             src={url}
-            alt="Image"
-          />
-          <div className="flex flex-col h-[100%] dark:bg-[#27272A] bg-white rounded-lg p-[2%]">
+              alt="Image"
+              />
+          <div className="flex h-[100%] flex-col    pl-[2%] pr-[2%]  gap-2">
+            <div>
             <div>
               <p className="text-[100%] font-bold">{name}</p>{" "}
-              {/* `text-[1em]`-ийг `text-base` гэж ашиглах боломжтой */}
+            
             </div>
-            <div className="flex flex-row  items-center gap-[2%]">
+           
+              <div className="flex flex-row">
               <Star />
               <p className="text-[85%]">
-                <span className="font-bold">
+                <span className="font-medium">
                   {Math.floor(rating * 10) / 10}
                 </span>
                 <span className="text-[#71717A]">/10</span>
               </p>
+              
             </div>
+            </div>
+          
+             <p className="font-medium text-[85%]">{year}</p>
+          </div>
+         
+        </div>
+         <Link href={`/Movie/${id}`} key={id}   onClick={() => setSearchClicked(false)}>
+        <div className="flex flex-row text-nowrap items-center font-medium text-sm p-4 gap-1">
+          <p>See more</p>
+          <div className="flex w-[8px] ">
+          <RightArrow />
           </div>
         </div>
-
-        <div className="flex flex-row text-nowrap items-center font-bold p-2">
-          <p>See more</p>
-          <RightArrow />
-        </div>
+         </Link>
       </div>
-    </Link>
+   
   );
 };

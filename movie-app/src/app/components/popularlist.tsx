@@ -1,3 +1,4 @@
+"use client"
 import { MovieList } from "./movieList";
 import { Seemore } from "./Seemore";
 import type { Movie } from "./UpcomingList";
@@ -39,7 +40,9 @@ export const PopularList = () => {
             return (
               <div key={index}>
                 <MovieList
-                  url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                  url={item.poster_path 
+  ? `https://image.tmdb.org/t/p/original${item.poster_path}` 
+  : "/default.jpeg"}
                   name={item.title}
                   rating={item.vote_average}
                   id={item.id}

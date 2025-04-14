@@ -1,9 +1,11 @@
+"use client"
 import { MovieList } from "./movieList";
 import { Seemore } from "./Seemore";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
+
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
 
@@ -21,6 +23,8 @@ export type Movie = {
 
 export type Response = {
   results: Movie[];
+  total_pages:string
+
 };
 
 export const UpcomingList = () => {
@@ -39,11 +43,12 @@ export const UpcomingList = () => {
       );
 
       setMovies(data.results);
+    
       setLoading(false);
     };
     getMoviesByAxios();
   }, []);
-  console.log("upcoming", movies);
+ 
   return (
     <div className="flex flex-col gap-8 p-10">
       <Seemore title="Upcoming" />
@@ -53,7 +58,9 @@ export const UpcomingList = () => {
             return (
               <div key={index}>
                 <MovieList
-                  url={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                  url={item.poster_path 
+  ? `https://image.tmdb.org/t/p/original${item.poster_path}` 
+  : "/default.jpeg"}
                   name={item.title}
                   rating={item.vote_average}
                   id={item.id}

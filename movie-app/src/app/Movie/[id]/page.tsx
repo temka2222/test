@@ -25,7 +25,7 @@ type Movie = {
   vote_average: string;
   release_date: string;
   vote_count: string;
-  genres: string[];
+  genres: { id: number, name: string }[];
 };
 
 const ACCESS_TOKEN =
@@ -77,11 +77,11 @@ export default function Moviepage() {
           <div className="lg:flex-1/3 flex-1/4  border-solid border">
             <img
               className=" aspect-[1/1.2]  "
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+              src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
             />
           </div>
           <div className=" lg:flex-2/3 flex-1/2 aspect-[1/0.5]  border-solid border">
-            <Trailer id={id} />
+            <Trailer id={Number(id)} />
           </div>
         </div>
         <div className="flex flex-col gap-5 justify-star">
@@ -97,7 +97,7 @@ export default function Moviepage() {
               );
             })}
           </div>
-          <div className="text-3">{movie.overview}</div>
+          <div className="text-3">{movie?.overview}</div>
         </div>
         <div>
           <StaffInformation id={id} />

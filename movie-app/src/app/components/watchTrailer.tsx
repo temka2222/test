@@ -7,11 +7,13 @@ type setIndType = {
 };
 
 export const Trailer = (
+  
   name: string,
   rating: string,
   desc: string,
   id: number,
   { setInd }: setIndType
+  
 ) => {
   return (
     <div className=" flex absolute z-10 pl-26  text-justify text-white">

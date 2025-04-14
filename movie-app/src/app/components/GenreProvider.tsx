@@ -27,8 +27,7 @@ export const GenreProvider = ({ children }: PropsWithChildren) => {
         {
           method: "GET",
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWJjNGM2NWNkZDFhNzE3N2I0NWQwMzhjNmE5NDlhYiIsIm5iZiI6MTc0MjgzMjQ4MS40NTQwMDAyLCJzdWIiOiI2N2UxODM2MTRjZTA3ZDY4NGUwODE5NzAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.kYLNQ-aa-cqDiKJQJ5ogEr5ATubq9JU87gsO_n8Sz3U",
+            Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
           },
         }
       );

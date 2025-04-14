@@ -1,7 +1,7 @@
 "use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, Suspense } from "react";
 import { useState, useContext } from "react";
 import { DarkContext, DarkProvider } from "./components/MoviesProvider";
 import { Navigation } from "./components/navigation";
@@ -30,15 +30,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[1440px] m-auto`}
       >
-        <DarkProvider>
-          <GenreProvider>
-           <SearchProvider>
-            <Navigation/>
-            {children}
-            <Footer />
-            </SearchProvider>
-          </GenreProvider>
-        </DarkProvider>
+        <Suspense>
+          <DarkProvider>
+            <GenreProvider>
+              <SearchProvider>
+                <Navigation />
+                {children}
+                <Footer />
+              </SearchProvider>
+            </GenreProvider>
+          </DarkProvider>
+        </Suspense>
       </body>
     </html>
   );

@@ -21,8 +21,6 @@ import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SearchMovies } from "./SearchMenu";
 
-
-
 type Genre = {
   id: number;
   name: string;
@@ -43,7 +41,6 @@ export const Navigation = () => {
   const searchParams = useSearchParams();
   const genre = searchParams.get("genre");
   const [searchClicked, setSearchClicked] = useState<boolean>(false);
-
 
   useEffect(() => {
     if (!check) return;
@@ -103,11 +100,13 @@ export const Navigation = () => {
                     <p>See lists of movies by genre</p>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[auto_auto_auto_auto] w-fit gap-3 border-solid border p-2 rounded-2xl ">
-                      {genres.map((item) => (
+                      {genres?.map((item) => (
                         <Link
                           key={item.id}
                           href={`/search?genre=${item.id}`}
-                          onClick={() => {setSelectedGenre(item.name);}}
+                          onClick={() => {
+                            setSelectedGenre(item.name);
+                          }}
                         >
                           <div className="flex flex-row p-1 w-fit hover:bg-gray-200 rounded-lg border-solid border s">
                             <span>{item.name}</span>

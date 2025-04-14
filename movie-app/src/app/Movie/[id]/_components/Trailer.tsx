@@ -1,8 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
-const ACCESS_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
 type Trailer = {
   key: string;
 };
@@ -17,7 +14,7 @@ export const Trailer = ({ id }: { id: number }) => {
         `https://api.themoviedb.org/3//movie/${id}/videos?language=en-US`,
         {
           headers: {
-            Authorization: `Bearer ${ACCESS_TOKEN}`,
+            Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
           },
         }
       );

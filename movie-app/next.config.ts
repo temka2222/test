@@ -1,4 +1,8 @@
 import { NextConfig } from "next";
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  env: {
+    ACCESS_TOKEN: process.env.ACCESS_TOKEN,
+  },
+};
 
 export default nextConfig;
